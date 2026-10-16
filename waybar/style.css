@@ -1,0 +1,329 @@
+@import "../../.cache/wal/colors-waybar.css";
+
+* {
+    font-family: Mononoki, JetBrainsMono Nerd Font, "Font Awesome 7 Free", "Font Awesome 7 Brands", "Symbols Nerd Font", "Noto Sans", sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+window#waybar {
+    background-color: transparent;
+    transition-property: background-color;
+    transition-duration: .5s;
+}
+
+window#waybar.hidden {
+    opacity: 0.2;
+}
+
+button {
+    box-shadow: none;
+    border: none;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* Custom YouTube modul */
+#custom-youtube.youtube {
+    color: #ffffff;
+    padding: 0 12px;
+}
+
+/* CAVA visualizer */
+#custom-cava {
+    font-family: monospace;
+    font-size: 9px;
+    color: rgba(255, 255, 255, 0.6);
+    min-width: 100px;
+    padding: 0 12px;
+}
+
+
+#custom-performance {
+    background-color: transparent; /* Tmavá barva pozadí */
+    color: #ffffff;
+    font-family: monospace;
+    padding: 0 10px;
+    margin: 0 5px;
+    border-radius: 10px;
+}
+
+
+
+
+/* tty-clock    */
+#custom-tty-clock{
+  color: #ffffff;
+  font-family: monospace;
+  font-size: 25px;
+  padding-left : 12px;
+  padding-right: 24px;
+}
+
+#window {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: bold;
+}
+
+/* Workspaces */
+#workspaces button {
+    background-color: transparent;
+    padding: 0px 8px;
+    color: rgba(255, 255, 255, 0.4);
+    font-weight: bold;
+    margin: 0 2px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    text-shadow: none;
+}
+
+#workspaces button.active {
+    color: #ffffff;
+    background: transparent;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.8),
+                 0 0 12px rgba(255, 255, 255, 0.6);
+}
+
+#workspaces button:hover {
+    color: rgba(255, 255, 255, 0.8);
+    background: transparent;
+    text-shadow: 0 0 6px rgba(255, 255, 255, 0.4);
+}
+
+#workspaces button.urgent {
+    color: #ff6b6b;
+    background: rgba(255, 107, 107, 0.15);
+}
+
+/* Všechny moduly */
+#clock,
+#battery,
+#cpu,
+#memory,
+#disk,
+#temperature,
+#backlight,
+#network,
+#pulseaudio,
+#wireplumber,
+#custom-media,
+#custom-mem,
+#tray,
+#custom-lockscreen,
+#mode,
+#idle_inhibitor,
+#scratchpad,
+#power-profiles-daemon,
+#mpd {
+    padding: 0 12px;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+#window,
+#workspaces {
+    margin: 0 8px 0 0;
+}
+
+.modules-left > widget:first-child > #workspaces {
+    margin-left: 0;
+}
+
+.modules-right > widget:last-child > #workspaces {
+    margin-right: 0;
+}
+
+/* OS button */
+#custom-os_button {
+    color: #ffffff;
+    font-size: 1.2rem;
+    padding: 0 14px 0 12px;
+    margin-left: 6px;
+    margin-top: 6px;
+    margin-bottom: 6px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.12);
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+#custom-os_button:hover {
+    background: rgba(255, 255, 255, 0.18);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+/* Power button */
+#custom-power {
+    color: #ffffff;
+    padding: 0 14px 0 12px;
+    margin-left: 4px;
+    margin-right: 6px;
+    margin-top: 6px;
+    margin-bottom: 6px;
+    border-radius: 12px;
+    background: rgba(255, 107, 107, 0.15);
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+#custom-power:hover {
+    background: rgba(255, 107, 107, 0.25);
+    box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
+}
+
+/* Clock */
+#clock {
+    margin-right: 6px;
+    margin-top: 6px;
+    margin-bottom: 6px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.08);
+    font-weight: 500;
+    padding: 0 14px;
+}
+
+/* Battery */
+#battery {
+    margin-bottom: 6px;
+    margin-top: 6px;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+#battery.charging,
+#battery.plugged {
+    color: #5efc82;
+}
+
+@keyframes blink {
+    to {
+        color: #ff6b6b;
+    }
+}
+
+#battery.critical:not(.charging) {
+    color: #ff6b6b;
+    animation-name: blink;
+    animation-duration: 0.5s;
+    animation-timing-function: steps(12);
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+label:focus {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Memory */
+#custom-mem {
+    background-color: transparent;
+    margin-right: 6px;
+    margin-left: 6px;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+#disk,
+#backlight {
+    background-color: transparent;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+/* Network */
+#network {
+    background-color: transparent;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+#network.disconnected {
+    color: #ff6b6b;
+}
+
+/* Audio */
+#pulseaudio {
+    margin-left: 6px;
+    background-color: transparent;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+#pulseaudio.muted {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+/* Temperature */
+#temperature {
+    background-color: transparent;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+#temperature.critical {
+    color: #ff6b6b;
+}
+
+/* Idle inhibitor */
+#idle_inhibitor {
+    background-color: rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.5);
+}
+
+#idle_inhibitor.activated {
+    background-color: rgba(255, 255, 255, 0.15);
+    color: #ffffff;
+}
+
+/* Scratchpad */
+#scratchpad {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+#scratchpad.empty {
+    background-color: transparent;
+}
+
+/* Privacy */
+#privacy {
+    padding: 0;
+}
+
+#privacy-item {
+    padding: 0 8px;
+    color: white;
+}
+
+#privacy-item.screenshare {
+    background-color: rgba(207, 87, 0, 0.8);
+}
+
+#privacy-item.audio-in {
+    background-color: rgba(28, 160, 0, 0.8);
+}
+
+#privacy-item.audio-out {
+    background-color: rgba(0, 105, 212, 0.8);
+}
+
+/* Kontejnery modulů */
+.modules-left {
+    margin: 12px 0 0 12px;
+    background: rgba(10, 15, 25, 0.85);
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.modules-center {
+    margin: 12px 0 0 0;
+    background: transparent;
+    border-radius: 16px;
+    padding: 6px 16px;
+}
+
+.modules-right {
+    margin: 12px 12px 0 0;
+    background: rgba(10, 15, 25, 0.85);
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
