@@ -1,0 +1,306 @@
+" ===============================================
+" 🎨 MODERNÍ VIM KONFIGURACE PRO ARCH LINUX
+" ===============================================
+
+" --- ZÁKLADNÍ NASTAVENÍ ---
+syntax on
+filetype plugin indent on
+set encoding=utf-8
+set ts=2 sts=2 sw=2 et ai si
+set rnu number                    " Relativní + aktuální číslo řádku
+set hls incsearch                 " Zvýraznění hledání + live search
+set ignorecase smartcase          " Chytré vyhledávání
+set mouse=a                       " Podpora myši
+set clipboard=unnamedplus         " Sdílená schránka se systémem (Linux)
+set updatetime=300                " Rychlejší refresh pro COC
+set signcolumn=yes                " Vždy zobrazit sloupec pro ikony
+set splitright splitbelow         " Lepší chování splitů
+set scrolloff=8                   " Odsazení při scrollování
+set wrap linebreak                " Inteligentní zalamování řádků
+set termguicolors                 " 24-bit barvy v terminálu
+set hidden                        " Umožní přepínat buffery bez uložení
+set nobackup nowritebackup        " COC doporučení
+set cmdheight=2                   " Více místa pro zprávy
+set shortmess+=c                  " Nevypisovat completion zprávy
+
+" --- PLUGIN MANAGER (vim-plug) ---
+" Instalace: curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+"   https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
+call plug#begin('~/.vim/plugged')
+  " Hlavní pluginy
+  Plug 'neoclide/coc.nvim', {'branch': 'release'}
+  Plug 'jiangmiao/auto-pairs'
+  Plug 'gruvbox-community/gruvbox'
+  Plug 'vim-airline/vim-airline'
+  Plug 'vim-airline/vim-airline-themes'
+  Plug 'preservim/nerdtree'
+  Plug 'Yggdroot/indentLine'
+
+  " Vizuální vylepšení
+  Plug 'ryanoasis/vim-devicons'
+  Plug 'luochen1990/rainbow'
+  Plug 'RRethy/vim-illuminate'
+
+  " Další užitečné pluginy
+  Plug 'tpope/vim-commentary'       " Komentování (gcc)
+  Plug 'tpope/vim-surround'         " Práce se závorkami
+  Plug 'airblade/vim-gitgutter'     " Git změny v editoru
+  Plug 'Xuyuanp/nerdtree-git-plugin' " Git ikony v NERDTree
+  Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+  Plug 'junegunn/fzf.vim'           " Fuzzy finder
+call plug#end()
+
+" --- COC KONFIGURACE ---
+" Tab pro dokončování
+inoremap <silent><expr> <Tab>
+      \ coc#pum#visible() ? coc#pum#next(1) :
+      \ CheckBackspace() ? "\<Tab>" :
+      \ coc#refresh()
+inoremap <silent><expr> <S-Tab>
+      \ coc#pum#visible() ? coc#pum#prev(1) :
+      \ "\<C-h>"
+
+function! CheckBackspace() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Enter pro potvrzení
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+" Ctrl+Space pro trigger completion
+inoremap <silent><expr> <c-space> coc#refresh()
+
+" Navigace v kódu
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Diagnostika
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" Zobrazit dokumentaci
+nnoremap <silent> K :call ShowDocumentation()<CR>
+function! ShowDocumentation()
+  if CocAction('hasProvider', 'hover')
+    call CocActionAsync('doHover')
+  else
+    call feedkeys('K', 'in')
+  endif
+endfunction
+
+" Automatické zvýraznění
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Rename symbol
+nmap <leader>rn <Plug>(coc-rename)
+
+" Format selected code
+xmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
+
+" --- BAREVNÉ SCHÉMA ---
+set background=dark
+let g:gruvbox_contrast_dark = 'soft'
+let g:gruvbox_italic = 1
+let g:gruvbox_bold = 1
+colorscheme gruvbox
+
+" --- VLASTNÍ BARVY ---
+" Pozadí
+"highlight Normal guibg=#fbf1c7
+"highlight NormalFloat guibg=#f9f5d7
+
+" Aktuální řádek
+"set cursorline
+"highlight CursorLine guibg=#f9f5d7 gui=NONE cterm=NONE
+"highlight CursorLineNr guifg=#d65d0e guibg=#f9f5d7 gui=bold cterm=bold
+
+" Čísla řádků
+"highlight LineNr guifg=#928374 guibg=#fbf1c7
+"highlight SignColumn guibg=#fbf1c7
+
+" COC popup menu
+"highlight Pmenu guibg=#ebdbb2 guifg=#3c3836
+"highlight PmenuSel guibg=#d5c4a1 guifg=#282828 gui=bold cterm=bold
+"highlight PmenuSbar guibg=#d5c4a1
+"highlight PmenuThumb guibg=#928374
+
+" COC floating window
+"highlight CocFloating guibg=#f9f5d7
+"highlight CocErrorFloat guifg=#cc241d guibg=#f9f5d7
+"highlight CocWarningFloat guifg=#d79921 guibg=#f9f5d7
+"highlight CocInfoFloat guifg=#458588 guibg=#f9f5d7
+
+" Git změny
+"highlight GitGutterAdd guifg=#98971a guibg=#fbf1c7
+"highlight GitGutterChange guifg=#d79921 guibg=#fbf1c7
+"highlight GitGutterDelete guifg=#cc241d guibg=#fbf1c7
+
+" Vyhledávání
+"highlight Search guibg=#fabd2f guifg=#282828 gui=bold cterm=bold
+"highlight IncSearch guibg=#fe8019 guifg=#282828 gui=bold cterm=bold
+
+" Vertikální split
+"highlight VertSplit guifg=#d5c4a1 guibg=#fbf1c7 gui=NONE cterm=NONE
+
+" Tab line
+"highlight TabLine guifg=#928374 guibg=#ebdbb2 gui=NONE cterm=NONE
+"highlight TabLineFill guibg=#ebdbb2 gui=NONE cterm=NONE
+"highlight TabLineSel guifg=#282828 guibg=#fbf1c7 gui=bold cterm=bold
+
+" --- AIRLINE KONFIGURACE ---
+let g:airline_powerline_fonts = 1
+let g:airline_theme = 'gruvbox'
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#formatter = 'unique_tail'
+let g:airline#extensions#coc#enabled = 1
+let g:airline#extensions#branch#enabled = 1
+let g:airline_skip_empty_sections = 1
+
+" Vlastní symboly
+if !exists('g:airline_symbols')
+  let g:airline_symbols = {}
+endif
+let g:airline_symbols.branch = ''
+let g:airline_symbols.readonly = ''
+let g:airline_symbols.linenr = ' '
+let g:airline_symbols.maxlinenr = ''
+let g:airline_symbols.dirty= '⚡'
+
+" --- NERDTREE KONFIGURACE ---
+nnoremap <C-b> :NERDTreeToggle<CR>
+nnoremap <leader>nf :NERDTreeFind<CR>
+
+let NERDTreeShowHidden=1
+let NERDTreeMinimalUI=1
+let NERDTreeIgnore=['\.git$', '\.DS_Store$', '__pycache__', 'node_modules', '\.pyc$']
+let NERDTreeDirArrowExpandable = ''
+let NERDTreeDirArrowCollapsible = ''
+
+" Automatické zavření když zůstane jen NERDTree
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+" --- FZF KONFIGURACE ---
+nnoremap <C-p> :Files<CR>
+nnoremap <leader>b :Buffers<CR>
+nnoremap <leader>g :Rg<CR>
+nnoremap <leader>h :History<CR>
+
+" --- DALŠÍ PLUGINY ---
+" Rainbow závorky
+let g:rainbow_active = 1
+let g:rainbow_conf = {
+\   'guifgs': ['#d65d0e', '#458588', '#b16286', '#689d6a'],
+\   'separately': {
+\       'nerdtree': 0,
+\   }
+\}
+
+" IndentLine
+let g:indentLine_char = '│'
+let g:indentLine_color_gui = '#d5c4a1'
+let g:indentLine_fileTypeExclude = ['nerdtree', 'help', 'markdown']
+
+" Illuminate
+let g:Illuminate_delay = 250
+let g:Illuminate_ftblacklist = ['nerdtree']
+
+" GitGutter
+let g:gitgutter_sign_added = '+'
+let g:gitgutter_sign_modified = '~'
+let g:gitgutter_sign_removed = '-'
+set updatetime=100
+
+" --- UŽITEČNÉ MAPOVÁNÍ ---
+" Leader key
+let mapleader = " "
+
+" Ukládání a zavírání
+nnoremap <leader>w :w<CR>
+nnoremap <leader>q :q<CR>
+nnoremap <leader>x :wq<CR>
+
+" Split navigace
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+
+" Vytvoření splitů
+nnoremap <leader>v :vsplit<CR>
+nnoremap <leader>s :split<CR>
+
+" Změna velikosti splitů
+nnoremap <silent> <A-h> :vertical resize -2<CR>
+nnoremap <silent> <A-l> :vertical resize +2<CR>
+nnoremap <silent> <A-k> :resize +2<CR>
+nnoremap <silent> <A-j> :resize -2<CR>
+
+" Přesunutí řádků (Alt + j/k)
+nnoremap <A-j> :m .+1<CR>==
+nnoremap <A-k> :m .-2<CR>==
+vnoremap <A-j> :m '>+1<CR>gv=gv
+vnoremap <A-k> :m '<-2<CR>gv=gv
+
+" Lepší odsazování ve visual mode
+vnoremap < <gv
+vnoremap > >gv
+
+" Clear search highlight
+nnoremap <silent> <Esc><Esc> :noh<CR>
+
+" Rychlé editování vimrc
+nnoremap <leader>ev :e $MYVIMRC<CR>
+nnoremap <leader>sv :source $MYVIMRC<CR>
+
+" Buffer navigace
+nnoremap <leader>bn :bnext<CR>
+nnoremap <leader>bp :bprevious<CR>
+nnoremap <leader>bd :bdelete<CR>
+
+" --- AUTOMATICKÉ PŘÍKAZY ---
+" Odstranění trailing whitespace při uložení
+autocmd BufWritePre * :%s/\s\+$//e
+
+" Zapamatování pozice kurzoru
+autocmd BufReadPost *
+  \ if line("'\"") > 0 && line("'\"") <= line("$") |
+  \   exe "normal! g`\"" |
+  \ endif
+
+" Automatické zavření popup menu po dokončení
+autocmd CompleteDone * if pumvisible() == 0 | pclose | endif
+
+" --- PERFORMANCE ---
+set lazyredraw          " Rychlejší scrollování
+set ttyfast            " Rychlejší rendering
+set synmaxcol=200      " Syntax jen pro prvních 200 znaků
+
+" ===============================================
+" 📦 INSTALAČNÍ INSTRUKCE PRO ARCH LINUX
+" ===============================================
+"
+" 1. Nainstaluj potřebné balíčky:
+"    sudo pacman -S vim nodejs npm python python-pip fzf ripgrep
+"
+" 2. Nainstaluj Nerd Font (pro ikony):
+"    yay -S ttf-firacode-nerd
+"    (nebo jakýkoliv jiný nerd font z AUR)
+"
+" 3. Zkopíruj tento soubor do ~/.vimrc
+"
+" 4. Otevři Vim a spusť:
+"    :PlugInstall
+"
+" 5. Nainstaluj COC extensions:
+"    :CocInstall coc-json coc-tsserver coc-python coc-html coc-css
+"
+" 6. Pro tmavé téma změň řádek 89:
+"    set background=dark
+"
+" ===============================================
