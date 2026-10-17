@@ -158,3 +158,12 @@ source "$OSH"/oh-my-bash.sh
 # Example aliases
 # alias bashconfig="mate ~/.bashrc"
 # alias ohmybash="mate ~/.oh-my-bash"
+#
+source "$HOME/.config/eza/colors.sh"
+
+
+# Eza — modern replacement for ls
+alias ls='eza --icons=always --group-directories-first'
+alias ll='eza -la --icons=always --group-directories-first'
+alias la='eza -a --icons=always --group-directories-first'
+alias lt='eza --tree --level=2 --icons=always'
