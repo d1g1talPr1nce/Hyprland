@@ -1,0 +1,36 @@
+{
+    "label": "lock",
+    "action": "true",
+    "text": "ZAMKNOUT  /  L",
+    "keybind": "l"
+}
+{
+    "label": "suspend",
+    "action": "true",
+    "text": "USPAT  /  U",
+    "keybind": "u"
+}
+{
+    "label": "hibernate",
+    "action": "true",
+    "text": "HIBERNACE  /  H",
+    "keybind": "h"
+}
+{
+    "label": "logout",
+    "action": "true",
+    "text": "ODHLÁSIT  /  E",
+    "keybind": "e"
+}
+{
+    "label": "reboot",
+    "action": "true",
+    "text": "RESTART  /  R",
+    "keybind": "r"
+}
+{
+    "label": "shutdown",
+    "action": "true",
+    "text": "VYPNOUT  /  S",
+    "keybind": "s"
+}

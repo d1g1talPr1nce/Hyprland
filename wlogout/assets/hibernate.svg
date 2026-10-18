@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 96 96">
+<path d="M48 3L93 48L48 93L3 48Z" fill="#72ACFF" fill-opacity=".035" stroke="#BCEEFF" stroke-opacity=".17"/>
+<path d="M48 9L87 48L48 87L9 48Z" fill="none" stroke="#BCEEFF" stroke-opacity=".07"/>
+<path d="M8 48L26 30L48 9" fill="none" stroke="#BCEEFF" stroke-opacity=".45"/>
+<g fill="none" stroke="#BCEEFF" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M48 22v52M25.5 35l45 26M25.5 61l45-26M41 26l7 7 7-7M41 70l7-7 7 7M27 43l10-3-3-10M69 53l-10 3 3 10M34 66l3-10-10-3M62 30l-3 10 10 3"/></g>
+<circle cx="48" cy="87" r="1.5" fill="#BCEEFF" opacity=".65"/>
+</svg>
