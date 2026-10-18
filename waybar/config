@@ -1,285 +1,167 @@
-// -*- mode: jsonc -*- 
-
-
 {
-  "spacing": 4,
+  "layer": "top",
+  "position": "top",
+  "height": 58,
+  "spacing": 3,
+  "margin-top": 6,
+  "margin-left": 10,
+  "margin-right": 10,
+  "exclusive": true,
+  "reload_style_on_change": true,
   "modules-left": [
-    "custom/os_button",
+    "custom/os",
     "hyprland/workspaces",
+    "custom/snake",
     "custom/cava",
-    "custom/tty-clock",
-    "custom/performance",
-    "custom/lockscreen"
+    "mpris"
   ],
   "modules-center": [
     "hyprland/window"
   ],
-
   "modules-right": [
-    "custom/youtube",
-    "backlight",
-    "pulseaudio",
+    "cpu",
+    "memory",
+    "custom/temperature",
     "network",
-    "custom/mem",
-    "temperature",
-    "battery",
-    "clock",
-    "custom/power"
+    "pulseaudio",
+    "tray",
+    "custom/clock",
+    "custom/dashboard"
   ],
-
-
-//"custom/lockscreen": {
-//    "format": "", // Můžete si vybrat jinou ikonu zámku
-//    "on-click": "sh -c '/usr/bin/hyprlock &'", // Používáme opravený příkaz
-//    "tooltip": false
-//  },
-
-"custom/cava": {
-  "format" : "{}",
-  "exec" : "~/.config/waybar/scripts/cava.sh"
-    },
-
-
-  "custom/tty-clock":{
-  "format" : "󰺗",
-  "on-click" : "kitty -e sh ~/.config/waybar/scripts/hodiny.sh",
-  "tooltip" : false
+  "custom/os": {
+    "format": "󰣇",
+    "on-click": "wofi --show drun",
+    "tooltip-format": "MIDNIGHT / ICE · Applications"
   },
-
-
-  "custom/performance":{
-  "format": "",
-  "on-click" : "kitty --class float_btop -e btop",
-  "tooltip" : false  
-  },
-
-  //     Modules configuration
   "hyprland/workspaces": {
+    "format": "{name}",
+    "on-click": "activate",
+    "all-outputs": false,
     "disable-scroll": true,
-    "all-outputs": true,
-    "warp-on-scroll": false,
-    "format": "{icon}",
-    "format-icons": {
-      "active": "",
-      "focused": "",
-      "default": ""
-    },
     "persistent-workspaces": {
       "1": [],
       "2": [],
       "3": [],
+      "4": [],
+      "5": []
     }
   },
-  "keyboard-state": {
-    "numlock": true,
-    "capslock": true,
-    "format": "{name} {icon}",
-    "format-icons": {
-      "locked": "",
-      "unlocked": ""
-    }
-  },
-
-
-  "hyprland/mode": {
-      "format": "<span style=\"italic\">{}</span>"
-    },
-    "hyprland/window": {
-      "format": "{class}",
-      "max-lenght": 10
-    },
-    "custom/os_button": {
-      "format": "󰣇",
-      "on-click": "wofi",
-      "tooltip": false
-    },
-    "custom/power": {
-      "format": "",
-      "on-click": "wlogout -p layer-shell",
-      "tooltip": false
-    },
-    "hyprland/scratchpad": {
-      "format": "{icon} {count}",
-      "show-empty": false,
-      "format-icons": [
-        "",
-        ""
-      ],
-      "tooltip": true,
-      "tooltip-format": "{app}: {title}"
-    },
-    "mpd": {
-      "format": "{stateIcon} {consumeIcon}{randomIcon}{repeatIcon}{singleIcon}{artist} - {album} - {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S}) ⸨{songPosition}|{queueLength}⸩ {volume}% ",
-      "format-disconnected": "Disconnected ",
-      "format-stopped": "{consumeIcon}{randomIcon}{repeatIcon}{singleIcon}Stopped ",
-      "unknown-tag": "N/A",
-      "interval": 5,
-      "consume-icons": {
-        "on": " "
-      },
-      "random-icons": {
-        "off": "<span color=\"#f53c3c\"></span> ",
-        "on": " "
-      },
-      "repeat-icons": {
-        "on": " "
-      },
-      "single-icons": {
-        "on": "1 "
-      },
-      "state-icons": {
-        "paused": "",
-        "playing": ""
-      },
-      "tooltip-format": "MPD (connected)",
-      "tooltip-format-disconnected": "MPD (disconnected)"
-    },
-    "idle_inhibitor": {
-      "format": "{icon}",
-      "format-icons": {
-        "activated": "",
-        "deactivated": ""
-      }
-    },
-    "tray": {
-      // "icon-size": 21,
-      "spacing": 10
-    },
-    "clock": {
-      "format": "{:%R}",
-      // "timezone": "America/New_York",
-      "tooltip-format": "<big>{:%Y %B}</big>\n<tt><big>{calendar}</big></tt>",
-      "format-alt": "{:%Y-%m-%d}"
-    },
-    "cpu": {
-      "format": "{usage}% ",
-      "tooltip": false
-    },
-    "memory": {
-      "format": "{}% "
-    },
-    "custom/mem": {
-      "format": "{}󰍛",
-      "interval": 3,
-      "exec": "free -m | awk '/Mem:/ {printf \"%dMi\", $3}'",
-      "tooltip": false
-    },
-    "temperature": {
-      // "thermal-zone": 2,
-      "hwmon-path": "/sys/class/hwmon/hwmon5/temp3_input",
-      "critical-threshold": 80,
-      // "format-critical": "{temperatureC}°C {icon}",
-      "format": "{temperatureC}°C {icon}",
-      "format-icons": [
-        "",
-      ]
-    },
-    "backlight": {
-      // "device": "acpi_video1",
-      "format": "{percent}% {icon}",
-      "format-icons": [
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        ""
-      ]
-    },
-    "battery": {
-      "states": {
-        // "good": 95,
-        "warning": 30,
-        "critical": 15
-      },
-      "format": "{capacity}% {icon}",
-      "format-full": "{capacity}% {icon}",
-      "format-charging": "{capacity}% ",
-      "format-plugged": "{capacity}% ",
-      "format-alt": "{time} {icon}",
-      // "format-good": "", // An empty format will hide the module
-      // "format-full": "",
-      "format-icons": [
-        "",
-        "",
-        "",
-        "",
-        ""
-      ]
-    },
-    "battery#bat2": {
-      "bat": "BAT2"
-    },
-    "power-profiles-daemon": {
-      "format": "{icon}",
-      "tooltip-format": "Power profile: {profile}\nDriver: {driver}",
-      "tooltip": true,
-      "format-icons": {
-        "default": "",
-        "performance": "",
-        "balanced": "",
-        "power-saver": ""
-      }
-    },
-    "network": {
-      // "interface": "wlp2*", // (Optional) To force the use of this interface
-      "format-wifi": "{signalStrength}% ",
-      "format-ethernet": "{ipaddr}/{cidr}󰲐",
-      "tooltip-format": "Connected to {essid}",
-      "format-linked": "{ifname} (No IP) 󰌙",
-      "format-disconnected": "Disconnected ⚠",
-      "on-click": "nm-connection-editor"
-
-    },
-    "pulseaudio": {
-      // "scroll-step": 1, // %, can be a float
-      "format": "{icon}",
-      "format-bluetooth": "{icon}",
-      "format-bluetooth-muted": "{icon}",
-      "format-muted": "",
-      "format-source": "󰝟",
-      "format-source-muted": "󰝟",
-      "format-icons": {
-        "headphone": "",
-        "hands-free": "",
-        "headset": "",
-        "phone": "",
-        "portable": "",
-        "car": "",
-        "default": [
-          "",
-          "",
-          ""
-        ]
-      },
-      "on-click": "pavucontrol"
-    },
-
-"custom/youtube": {
+  "custom/cava": {
+    "exec": "python3 \"${MIDNIGHT_WAYBAR_DIR:-${XDG_CONFIG_HOME:-$HOME/.config}/waybar}/scripts/midnight-cava.py\"",
     "format": "{}",
-    "return-type": "json",
-    "exec": "~/.config/waybar/scripts/youtube-status.sh",
-    "on-click": "zen-browser https://www.youtube.com",
-    "escape": true
+    "tooltip": false,
+    "restart-interval": 5
   },
-
-
-
-
-
-    "custom/media": {
-      "format": "{icon} {}",
-      "return-type": "json",
-      "max-length": 40,
-      "format-icons": {
-        "spotify": "",
-        "default": "🎜"
-      },
-      "escape": true,
-      "exec": "$HOME/.config/waybar/mediaplayer.py 2> /dev/null" // Script in resources folder
-      // "exec": "$HOME/.config/waybar/mediaplayer.py --player spotify 2> /dev/null" // Filter player based on name
+  "mpris": {
+    "format": "{status_icon} {title}",
+    "format-paused": "{status_icon} {title}",
+    "status-icons": {
+      "playing": "󰎈",
+      "paused": "󰏤",
+      "stopped": "󰎊"
+    },
+    "max-length": 24,
+    "tooltip-format": "{player}\n{artist} — {title}"
+  },
+  "cpu": {
+    "interval": 3,
+    "format": " {usage}%",
+    "on-click": "kitty -e btop"
+  },
+  "memory": {
+    "interval": 5,
+    "format": "󰍛 {percentage}%",
+    "tooltip-format": "RAM: {used:0.1f} / {total:0.1f} GiB",
+    "on-click": "kitty -e btop"
+  },
+  "custom/temperature": {
+    "exec": "python3 \"${MIDNIGHT_WAYBAR_DIR:-${XDG_CONFIG_HOME:-$HOME/.config}/waybar}/scripts/midnight-temperature.py\"",
+    "return-type": "json",
+    "interval": 5
+  },
+  "network": {
+    "format-wifi": "󰤨 {signalStrength}%",
+    "format-ethernet": "󰈀 LAN",
+    "format-disconnected": "󰤭 OFF",
+    "tooltip-format": "{ifname}\n{ipaddr}/{cidr}",
+    "tooltip-format-wifi": "<span size=\"large\" weight=\"bold\" foreground=\"#BCEEFF\">󰤨  NETWORK</span>\n\n{essid}\nSignál  {signalStrength}%\nIP      {ipaddr}\n\n<span foreground=\"#6E8EAE\">Klikni pro správu připojení</span>",
+    "on-click": "python3 \"${MIDNIGHT_WAYBAR_DIR:-${XDG_CONFIG_HOME:-$HOME/.config}/waybar}/scripts/midnight-network.py\"",
+    "on-click-right": "nm-connection-editor",
+    "tooltip-format-ethernet": "<span size=\"large\" weight=\"bold\" foreground=\"#BCEEFF\">󰈀  NETWORK</span>\n\n<span foreground=\"#79D8F7\">● Ethernet připojen</span>\n\nRozhraní   {ifname}\nIP adresa  {ipaddr}/{cidr}\nBrána      {gwaddr}\n\n↓ {bandwidthDownBytes}   ↑ {bandwidthUpBytes}\n\n<span foreground=\"#6E8EAE\">Klikni pro správu připojení</span>",
+    "tooltip-format-disconnected": "<span size=\"large\" foreground=\"#BCEEFF\">󰤭  NETWORK</span>\n\nSíť odpojena\nKlikni pro výběr uloženého připojení"
+  },
+  "pulseaudio": {
+    "format": "{icon} {volume}%",
+    "format-muted": "󰝟 MUTE",
+    "format-icons": {
+      "headphone": "",
+      "default": [
+        "",
+        "",
+        ""
+      ]
+    },
+    "scroll-step": 2,
+    "on-click": "pavucontrol",
+    "on-click-right": "pactl set-sink-mute @DEFAULT_SINK@ toggle"
+  },
+  "idle_inhibitor": {
+    "format": "{icon}",
+    "format-icons": {
+      "activated": "󰅶",
+      "deactivated": "󰾪"
+    },
+    "tooltip-format": "Keep awake: {status}"
+  },
+  "tray": {
+    "icon-size": 19,
+    "spacing": 8
+  },
+  "custom/lock": {
+    "format": "󰌾",
+    "on-click": "hyprlock",
+    "tooltip-format": "Zamknout"
+  },
+  "custom/power": {
+    "format": "",
+    "on-click": "wlogout",
+    "tooltip-format": "Menu relace"
+  },
+  "hyprland/window": {
+    "format": "{class}",
+    "max-length": 22,
+    "separate-outputs": true,
+    "icon": true,
+    "icon-size": 19,
+    "tooltip": true,
+    "rewrite": {
+      "^.*[Zz]en.*$": "zen",
+      "^org\\.mozilla\\.firefox$": "firefox",
+      "^org\\.gnome\\.Nautilus$": "files",
+      "^org\\.kde\\.dolphin$": "dolphin",
+      "^com\\.discordapp\\.Discord$": "discord"
     }
+  },
+  "custom/snake": {
+    "exec": "python3 \"${MIDNIGHT_WAYBAR_DIR:-${XDG_CONFIG_HOME:-$HOME/.config}/waybar}/scripts/midnight-snake.py\"",
+    "return-type": "json",
+    "interval": 1,
+    "format": "{}",
+    "escape": false,
+    "on-click": "python3 \"${MIDNIGHT_WAYBAR_DIR:-${XDG_CONFIG_HOME:-$HOME/.config}/waybar}/scripts/midnight-snake.py\" toggle",
+    "on-click-right": "python3 \"${MIDNIGHT_WAYBAR_DIR:-${XDG_CONFIG_HOME:-$HOME/.config}/waybar}/scripts/midnight-panel.py\"",
+    "on-scroll-up": "python3 \"${MIDNIGHT_WAYBAR_DIR:-${XDG_CONFIG_HOME:-$HOME/.config}/waybar}/scripts/midnight-snake.py\" prev",
+    "on-scroll-down": "python3 \"${MIDNIGHT_WAYBAR_DIR:-${XDG_CONFIG_HOME:-$HOME/.config}/waybar}/scripts/midnight-snake.py\" next"
+  },
+  "custom/clock": {
+    "exec": "python3 \"${MIDNIGHT_WAYBAR_DIR:-${XDG_CONFIG_HOME:-$HOME/.config}/waybar}/scripts/midnight-clock.py\"",
+    "return-type": "json",
+    "interval": 5,
+    "on-click": "python3 \"${MIDNIGHT_WAYBAR_DIR:-${XDG_CONFIG_HOME:-$HOME/.config}/waybar}/scripts/midnight-panel.py\""
+  },
+  "custom/dashboard": {
+    "format": "󰍜",
+    "tooltip-format": "MIDNIGHT CONTROL · otevřít / zavřít",
+    "on-click": "python3 \"${MIDNIGHT_WAYBAR_DIR:-${XDG_CONFIG_HOME:-$HOME/.config}/waybar}/scripts/midnight-panel.py\""
   }
+}

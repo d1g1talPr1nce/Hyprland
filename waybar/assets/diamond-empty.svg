@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="40" height="34" viewBox="0 0 40 34">
+<defs><linearGradient id="fill" x1="0" y1="0" x2=".7" y2="1"><stop stop-color="#102239"/><stop offset="1" stop-color="#091525"/></linearGradient></defs>
+<!-- A continuous link and nested translucent strokes create a restrained halo. -->
+<path d="M0 17H40" stroke="#5886AC" stroke-opacity=".28"/>
+<path d="M20 2L38 17L20 32L2 17Z" fill="url(#fill)"/>
+<!-- Asymmetric facets leave the central number clear and readable. -->
+<path d="M20 2L38 17L27 12Z" fill="#5886AC" opacity="0.065"/>
+<path d="M20 2L27 12L12 11Z" fill="#D6F6FF" opacity="0.0455"/>
+<path d="M2 17L12 11L11 23Z" fill="#5886AC" opacity="0.0455"/>
+<path d="M11 23L20 32L28 23Z" fill="#5886AC" opacity="0.05525"/>
+<path d="M28 23L38 17L27 12Z" fill="#020911" opacity=".25"/>
+<path d="M12 11L20 2M27 12L38 17M28 23L20 32M11 23L2 17" fill="none" stroke="#5886AC" stroke-width=".65" opacity="0.117"/>
+<path d="M20 2L38 17L20 32L2 17Z" fill="none" stroke="#5886AC" stroke-width="4" opacity="0.0368"/>
+<path d="M20 2L38 17L20 32L2 17Z" fill="none" stroke="#5886AC" stroke-width="2.3" opacity="0.0736"/>
+<path d="M20 2L38 17L20 32L2 17Z" fill="none" stroke="#5886AC" stroke-width=".85" opacity="0.46"/>
+<path d="M5 14.5L19 3" fill="none" stroke="#E1F8FF" stroke-width=".8" opacity="0.25300000000000006"/>
+</svg>
